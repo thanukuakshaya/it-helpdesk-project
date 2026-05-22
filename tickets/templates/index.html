@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IT Helpdesk</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .create-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .create-link:hover {
+            text-decoration: underline;
+        }
+
+        .ticket {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .status-open {
+            color: red;
+            font-weight: bold;
+        }
+
+        .status-closed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .btn-close {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .btn-close:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>IT Helpdesk</h1>
+
+
+    <a href="/create/" class="create-link">+ Create Ticket</a>
+
+    <hr>
+
+    {% for ticket in tickets %}
+    <div class="ticket">
+        <b>{{ ticket.title }}</b> —
+
+        {% if ticket.status == "Open" %}
+            <span class="status-open">{{ ticket.status }}</span>
+
+            <a href="/close/{{ ticket.id }}/" class="btn-close">Close</a>
+
+        {% else %}
+            <span class="status-closed">{{ ticket.status }}</span>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
