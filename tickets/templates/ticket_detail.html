@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Ticket</title>
+    <title>Ticket Details</title>
     <style>
         body {
             font-family: Arial;
@@ -21,10 +21,11 @@
             text-align: center;
         }
 
-        input, textarea {
+        select {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         button {
@@ -40,15 +41,30 @@
 <body>
 
 <div class="container">
-    <h2>Create Ticket</h2>
+    <h2>Ticket Details</h2>
+
+    <p><b>Title:</b> {{ ticket.title }}</p>
+    <p><b>Description:</b> {{ ticket.description }}</p>
 
     <form method="POST">
         {% csrf_token %}
 
-        <input type="text" name="title" placeholder="Title" required>
-        <textarea name="description" placeholder="Description" required></textarea>
+        <label>Status</label>
+        <select name="status">
 
-        <button type="submit">Create</button>
+            <option value="In Progress"
+                {% if ticket.status == "In Progress" %}selected{% endif %}>
+                In Progress
+            </option>
+
+            <option value="Closed"
+                {% if ticket.status == "Closed" %}selected{% endif %}>
+                Closed
+            </option>
+
+        </select>
+
+        <button type="submit">Update</button>
     </form>
 
     <a href="/">Back</a>

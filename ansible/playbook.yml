@@ -25,6 +25,8 @@
         path: "{{ app_dir }}"
         state: directory
         owner: ec2-user
+        group: ec2-user
+        mode: '0755'
 
     - name: Clone repository
       git:
@@ -61,7 +63,6 @@
     - name: Start Django using Gunicorn
       become_user: ec2-user
       shell: |
-        nohup {{ app_dir }}/venv/bin/gunicorn IT_help_desk.wsgi:application --bind 0.0.0.0:8000 &
+        nohup {{ app_dir }}/venv/bin/gunicorn IT_help_desk.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
       args:
         chdir: "{{ app_dir }}"
-

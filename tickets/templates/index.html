@@ -30,11 +30,7 @@
             text-decoration: none;
         }
 
-        .create-link:hover {
-            text-decoration: underline;
-        }
-
-        .ticket {
+        .tickerow {
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
@@ -49,18 +45,21 @@
             font-weight: bold;
         }
 
-        .btn-close {
-            background-color: #dc3545;
-            color: white;
+        .btn {
             padding: 5px 10px;
             border-radius: 5px;
             text-decoration: none;
             font-size: 12px;
-            margin-left: 10px;
+            color: white;
+            margin-left: 5px;
         }
 
-        .btn-close:hover {
-            background-color: #a71d2a;
+        .btn-open {
+            background-color: #28a745;
+        }
+
+        .btn-close {
+            background-color: #dc3545;
         }
     </style>
 </head>
@@ -70,23 +69,25 @@
 <div class="container">
     <h1>IT Helpdesk</h1>
 
-
     <a href="/create/" class="create-link">+ Create Ticket</a>
 
     <hr>
 
     {% for ticket in tickets %}
-    <div class="ticket">
+    <div class="tickerow">
         <b>{{ ticket.title }}</b> —
 
-        {% if ticket.status == "Open" %}
+        {% if ticket.status == "In-progress" %}
             <span class="status-open">{{ ticket.status }}</span>
-
-            <a href="/close/{{ ticket.id }}/" class="btn-close">Close</a>
-
         {% else %}
             <span class="status-closed">{{ ticket.status }}</span>
         {% endif %}
+
+        <!-- OPEN BUTTON -->
+        <a href="/ticket/{{ ticket.id }}/" class="btn btn-open">Open</a>
+
+        <!-- CLOSE BUTTON -->
+        <a href="/close/{{ ticket.id }}/" class="btn btn-close">Close</a>
 
     </div>
     {% endfor %}
