@@ -11,7 +11,7 @@ def create_ticket(request):
         Ticket.objects.create(
             title=request.POST['title'],
             description=request.POST['description'],
-            status="New"   # default status
+            status="New"   
         )
         return redirect('/')
     return render(request, 'create_ticket.html')
@@ -33,4 +33,4 @@ def ticket_detail(request, id):
     return render(request, 'ticket_detail.html', {'ticket': ticket})
 
 def health(request):
-    return HttpResponse("OK")
+    return HttpResponse("STATUS:OK")

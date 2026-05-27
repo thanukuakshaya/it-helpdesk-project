@@ -1,2 +1,4 @@
-Django
-gunicorn
+Django==4.2.7
+gunicorn==21.2.0
+whitenoise==6.6.0
+Terraform v1.8.5

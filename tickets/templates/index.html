@@ -9,7 +9,7 @@
         }
 
         .container {
-            width: 500px;
+            width: 600px;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -31,12 +31,15 @@
         }
 
         .tickerow {
-            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
             border-bottom: 1px solid #ddd;
         }
 
-        .status-open {
-            color: red;
+        .status-inprogress {
+            color: orange;
             font-weight: bold;
         }
 
@@ -45,49 +48,46 @@
             font-weight: bold;
         }
 
+        .status-open {
+            color: rgb(237, 72, 6);
+            font-weight: bold;
+        }
+
         .btn {
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 13px;
             color: white;
-            margin-left: 5px;
-        }
-
-        .btn-open {
-            background-color: #28a745;
-        }
-
-        .btn-close {
-            background-color: #dc3545;
+            background-color: #007bff;
         }
     </style>
 </head>
-
 <body>
 
 <div class="container">
     <h1>IT Helpdesk</h1>
 
+    <!-- ✅ FIXED LINK -->
     <a href="/create/" class="create-link">+ Create Ticket</a>
 
     <hr>
 
     {% for ticket in tickets %}
     <div class="tickerow">
-        <b>{{ ticket.title }}</b> —
 
-        {% if ticket.status == "In-progress" %}
-            <span class="status-open">{{ ticket.status }}</span>
-        {% else %}
-            <span class="status-closed">{{ ticket.status }}</span>
-        {% endif %}
+        <!-- LEFT -->
+        <div>
+            <b>{{ ticket.title }}</b> —
+            <span class="status-{{ ticket.status|lower|cut:' ' }}">
+                {{ ticket.status }}
+            </span>
+        </div>
 
-        <!-- OPEN BUTTON -->
-        <a href="/ticket/{{ ticket.id }}/" class="btn btn-open">Open</a>
-
-        <!-- CLOSE BUTTON -->
-        <a href="/close/{{ ticket.id }}/" class="btn btn-close">Close</a>
+        <!-- RIGHT BUTTON -->
+        <div>
+            <a href="/ticket/{{ ticket.id }}/" class="btn">Open</a>
+        </div>
 
     </div>
     {% endfor %}
